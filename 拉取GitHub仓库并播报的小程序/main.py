@@ -59,23 +59,70 @@ def times():
 # 日志写入
 def loggingWrite(message):
     file = open("logging.txt", "a")
-    file.write("日志开始记录:\t{}\n{}\n\n".format(times(),loggingMessage))
+    file.write("日志开始记录:\t{}\n{}\n\n".format(times(), loggingMessage))
     file.close()
 
 
-# message = pyttsx3.init()
-# msg = "当前仓库url:github.com steam-404 411message6.0 for production environment.git"
-# msg += "当前映射域名:4 1 1 点 f r e e.s v i p s s 点 t o p"
-# message.say(msg)
-# message.runAndWait()
+# 克隆指定文件
+def clone():
+    os.system("git clone https://github.com/steam-404/411message6.0-for-production-environment")
+    return "克隆文件"
 
-# nowTime = pyttsx3.init()
+
+# 递归删除文件及其子文件
+def delete_file(message):
+    pass
+
+
+def say(sayMessage):
+    pyttsx3.speak(sayMessage)
+    # sayMessage = pyttsx3.init()
+    # sayMessage.say("{}".format(message))
+    # message.runAndWait()
+
+
+say("当前仓库url:github.com steam-404 411message6.0 for production environment.git 当前映射域名:4 1 1 点 f r e e.s v i p s s 点top")
+
+nowTime = pyttsx3.init()
 # 语音初始化
-# nowTime.say(times())
+nowTime.say(times())
 # 内容播放
-# nowTime.runAndWait()
+nowTime.runAndWait()
 # 等待播放内容
-# print(times())
+print(times())
 
-loggingWrite(loggingMessage)
+say("线程已开启")
+say("正在检查旧仓库是否存在")
+# 判断文件是否存在
+fileMessage = os.path.exists("411message6.0-for-production-environment")
+
+say("旧文件仓库,已存在")
+# 如果文件夹存在则删除，在克隆
+if fileMessage:
+    # 语音播报
+    say("{}\t正在删除".format(time))
+    message2sound()
+    delete_file("temporaryFile/411message6.0-for-production-environment")
+    say("{}\t旧文件删除成功".format(times()))
+    message1sound()
+# 如果文件不存在则直接克隆
+elif not fileMessage:
+    say("正在克隆新仓库")
+    # 判断是否克隆成功,继续克隆直到成功
+    cloneMessage = True
+    say("新仓库克隆成功")
+    say("线程已关闭")
+    while cloneMessage:
+        clone()
+        fileMessage = os.path.exists("411message6.0-for-production-environment")
+        if fileMessage:
+            loggingMessage += "{}\t克隆失败正在重新克隆".format(times())
+            cloneMessage = False
+        else:
+            pass
+
+else:
+    loggingMessage += logging
+
+# loggingWrite(loggingMessage)
 # 写入日志信息
